@@ -2,6 +2,16 @@
 
 In this project, we're going to learn how to build a GCE image using packer. In particular, we want to build an image that includes a binary compliled from Golang which is set up to run as a service whenever a VM instantiated from the image boots up.
 
+For the complied binary, I'm going to use the `profilesvc` example from [GoKit](https://github.com/go-kit/examples/tree/master/profilesvc). It's a very simple REST server that lets you store and retrieve (key, value) pairs.
+
+As part of the packer build, we will:
+
+* Install GoLang and Git on the target build machine
+* Clone the GoKit Examples repo
+* Compile `profilesvc` and put it in `/user/local/bin`
+* Configure `systemd` to launch `profilesvc` as a service on boot up
+* Clean up by removing the cloned repo and any intermediate files created during compilation
+
 ## Install packer (mac)
 
 ```sh
